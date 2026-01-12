@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String  @unique
+  password  String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  recommandations  Recommendation[]
+
+  @@map("users")
+}
+
+model Model {
+  id          String      @id @default(uuid())
+
+  name        String
+  symbol      String
+  interval    String
+  trainingPeriod String   @map("training_period")
+  externalName   String   @unique @map("external_name")
+
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  recommendations   Recommendation[]
+
+  @@index([symbol, interval, trainingPeriod])
+  @@map("models")
+}
+
+model Recommendation {
+  id              String         @id @default(uuid())
+
+  userId          String         @map("user_id")
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  modelId         String         @map("model_id")
+  model           Model          @relation(fields: [modelId], references: [id], onDelete: Cascade)
+
+  currentPrice    Decimal  @db.Decimal(18, 8) @map("current_price")
+  trend           String
+
+  prediction      Json
+
+  createdAt       DateTime       @default(now()) @map("created_at")
+
+  @@index([userId, createdAt])
+  @@map("recommendations")
+}

@@ -1,13 +1,89 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* src/index.css */
+
+/* Подключаем Tailwind + Flowbite */
+@import 'tailwindcss';
+
+/* Flowbite */
+@import 'flowbite';
+
+/* Глобальные стили для всего сайта */
+html,
+body,
+#root {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif; /* можно сменить на любой шрифт */
+	background-color: #1f2937; /* slate-800 */
+	color: #f9fafb; /* slate-50 */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.z-50 {
+	z-index: 50;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+/* Центрируем основной контент */
+main {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+}
+
+/* Глобальные заголовки и кнопки */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 600;
+}
+
+button {
+	cursor: pointer;
+}
+
+html.overflow-hidden,
+body.overflow-hidden {
+	overflow: visible !important;
+}
+
+
+/* Основной контейнер скроллбар */
+.history-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: thin;           /* Firefox */
+  scrollbar-color: #252244 #19212f;
+}
+
+/* Chrome, Edge, Safari */
+.history-scrollbar::-webkit-scrollbar {
+  width: 8px;                      /* ширина вертикального скроллбара */
+}
+
+.history-scrollbar::-webkit-scrollbar-track {
+  background: #19212f;             /* цвет дорожки */
+  border-radius: 8px;              /* скругление дорожки */
+}
+
+.history-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #15151c;       /* цвет ползунка */
+  border-radius: 8px;              /* скругление ползунка */
+  border: 2px solid #2d3748;       /* отступ вокруг ползунка для эффекта */
 }
