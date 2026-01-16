@@ -41,7 +41,7 @@ export default function ForecastChart({ currentPrice, prediction, diffPercent })
 						formatter={(value, name, props) => [
 							value.toFixed(2),
 							name,
-							{ style: { color: '#fff', fontWeight: 500 } }, // берем цвет линии и делаем чуть светлее
+							{ style: { color: '#fff', fontWeight: 500 } },
 						]}
 						contentStyle={{
 							backgroundColor: '#1e293b',

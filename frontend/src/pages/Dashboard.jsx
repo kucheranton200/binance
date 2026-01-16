@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useModels, useForecast } from '../hooks';
 import { Button, Select } from 'flowbite-react';
 import ForecastChart from '../components/ForecastChart';
+import RecommendationBadge from '../components/RecommandationBadge';
 
 const SYMBOLS = ['BTCUSDT', 'ETHUSDT'];
 const INTERVALS = ['5m', '15m', '30m', '1h', '2h','4h', '8h', '1d'];
@@ -31,7 +32,29 @@ export default function Dashboard({ onLogout }) {
 
 	return (
 		<div className="flex flex-col min-h-screen bg-slate-900 text-white">
-			<header className="flex justify-end p-4 bg-slate-800 shadow-md">
+			<header className="flex items-center px-6 py-4 bg-slate-800 shadow-md">
+				{/* Лого + текст */}
+				<div className="flex items-center gap-4">
+					<img
+						src="/logo.png"
+						alt="Crypto Thieves logo"
+						className="w-14 h-14 rounded-2xl"
+					/>
+
+					<div className="flex flex-col leading-tight">
+						<span className="text-xl font-bold text-white tracking-wide">
+							Crypto Thieves
+						</span>
+						<span className="text-sm text-gray-400">
+							AI-powered crypto forecasting
+						</span>
+					</div>
+				</div>
+
+				{/* Spacer */}
+				<div className="flex-1" />
+
+				{/* Logout */}
 				<Button color="light" onClick={onLogout}>
 					Выйти
 				</Button>
@@ -139,8 +162,9 @@ export default function Dashboard({ onLogout }) {
 														? 'text-green-400'
 														: 'text-red-400'
 												}`}>
-												Рекомендация:{' '}
-												{result.trend === 'UP' ? 'Покупать' : 'Продавать'}
+												<div className="mt-2 flex justify-center">
+													<RecommendationBadge trend={result.trend} />
+												</div>
 											</p>
 											<div className="mt-3 text-left">
 												<h3 className="font-semibold mb-2 text-center">
@@ -148,8 +172,8 @@ export default function Dashboard({ onLogout }) {
 												</h3>
 												<ForecastChart
 													currentPrice={result.currentPrice}
-														prediction={result.prediction}
-														diffPercent={result.diffPercent}
+													prediction={result.prediction}
+													diffPercent={result.diffPercent}
 												/>
 											</div>
 										</div>
@@ -162,7 +186,9 @@ export default function Dashboard({ onLogout }) {
 
 				{/* История */}
 				<aside className="w-96 bg-slate-800 p-4 rounded-lg shadow-lg flex flex-col gap-2 overflow-y-auto max-h-[80vh] history-scrollbar">
-					<h2 className="text-lg font-semibold text-gray-300 mb-2 text-center">История</h2>
+					<h2 className="text-lg font-semibold text-gray-300 mb-2 text-center">
+						История
+					</h2>
 					{history.length === 0 && (
 						<p className="text-gray-400">Нет запросов</p>
 					)}
